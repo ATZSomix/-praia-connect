@@ -322,27 +322,55 @@ footer p {
     </div>
 
     <p id="noResults" style="display:none; margin-top:20px;">
-      No matching categories found.
-    </p>
-  </section>
+  No matching categories found.
+</p>
 
-  <section class="notice">
-    <h2>Have Something to Advertise?</h2>
+</section>
 
-    <p>
-      Praia Connect will help local businesses, employers
-      and service providers reach more people.
-    </p>
+<section class="notice" id="advertise">
+  <h2>Advertise With Us</h2>
 
-    <p>
-      Advertisement submissions are not available yet.
-      This is our first website version.
-    </p>
+  <p>Post your advert on Praia Connect. Every submission will be reviewed before appearing publicly.</p>
 
-    <button onclick="alert('Advertisement submissions are coming soon!')">
-      Advertise With Us
-    </button>
-  </section>
+  <form id="listingForm">
+    <label for="adTitle">Advert Title</label>
+    <input id="adTitle" type="text" maxlength="100"
+      placeholder="e.g. Room for rent in Praia" required>
+
+    <label for="adCategory">Category</label>
+    <select id="adCategory" required>
+      <option value="">Choose a category</option>
+      <option value="Jobs">Jobs</option>
+      <option value="Housing">Housing</option>
+      <option value="Marketplace">Marketplace</option>
+      <option value="Services">Services</option>
+      <option value="Businesses">Businesses</option>
+    </select>
+
+    <label for="adDescription">Description</label>
+    <textarea id="adDescription" minlength="10" maxlength="2000"
+      rows="4" placeholder="Describe your advert" required></textarea>
+
+    <label for="adLocation">Location</label>
+    <input id="adLocation" type="text"
+      placeholder="e.g. Palmarejo, Praia" required>
+
+    <label for="adPrice">Price in escudos (optional)</label>
+    <input id="adPrice" type="number" min="0" step="0.01">
+
+    <label for="adName">Your Name or Business Name</label>
+    <input id="adName" type="text"
+      placeholder="Your name or business name" required>
+
+    <label for="adWhatsApp">Your WhatsApp Number</label>
+    <input id="adWhatsApp" type="tel"
+      placeholder="Include country code, e.g. +238" required>
+
+    <button type="submit" id="submitAd">Submit Advert</button>
+
+    <p id="formMessage" role="status"></p>
+  </form>
+</section>
 
 </main>
 
