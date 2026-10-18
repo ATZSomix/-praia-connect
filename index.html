@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Praia Connect | Everything Praia</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f8fb;
+  color: #172b4d;
+  line-height: 1.6;
+}
+
+header {
+  background: #063b66;
+  color: white;
+  padding: 22px 16px;
+}
+
+nav {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #43d9c4;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #063b66, #087eaa);
+  color: white;
+  padding: 55px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  margin-bottom: 24px;
+  color: #e3f5ff;
+}
+
+.search {
+  display: flex;
+  max-width: 520px;
+  margin: auto;
+  gap: 8px;
+}
+
+input, select, button {
+  font: inherit;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+}
+
+button {
+  border: none;
+  background: #11bda7;
+  color: #063b45;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1000px;
+  padding: 30px 16px;
+  margin: auto;
+}
+
+h2 {
+  margin-bottom: 18px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.category {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 12px;
+  text-align: center;
+  border: 1px solid #e0eaf1;
+  cursor: pointer;
+}
+
+.category .icon {
+  font-size: 30px;
+}
+
+.category h3 {
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.listings {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e0eaf1;
+}
+
+.badge {
+  display: inline-block;
+  color: #087eaa;
+  background: #e6f7ff;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.notice {
+  background: #e7f7f4;
+  border-radius: 12px;
+  padding: 22px;
+  margin-top: 35px;
+}
+
+.notice p {
+  margin: 8px 0 15px;
+}
+
+footer {
+  background: #062c49;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+  margin-top: 35px;
+  font-size: 13px;
+}
+
+footer p {
+  margin: 5px;
+}
+
+@media (min-width: 650px) {
+  .categories {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .listings {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .search {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">Praia <span>Connect</span></div>
+    <a href="#categories">Explore Praia ↓</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Everything Praia.<br>One Place.</h1>
+
+  <p>
+    Find jobs, rooms, services and businesses
+    across Praia, Cabo Verde.
+  </p>
+
+  <div class="search">
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="What are you looking for?"
+      aria-label="Search listings"
+    >
+
+    <button onclick="searchListings()">Search</button>
+  </div>
+</section>
+
+<main class="container">
+
+  <section id="categories">
+    <h2>Explore Categories</h2>
+
+    <div class="categories">
+
+      <div class="category" onclick="filterListings('Jobs')">
+        <div class="icon">💼</div>
+        <h3>Jobs</h3>
+      </div>
+
+      <div class="category" onclick="filterListings('Housing')">
+        <div class="icon">🏠</div>
+        <h3>Housing</h3>
+      </div>
+
+      <div class="category" onclick="filterListings('Marketplace')">
+        <div class="icon">🛍️</div>
+        <h3>Marketplace</h3>
+      </div>
+
+      <div class="category" onclick="filterListings('Services')">
+        <div class="icon">🛠️</div>
+        <h3>Services</h3>
+      </div>
+
+      <div class="category" onclick="filterListings('Business')">
+        <div class="icon">🏢</div>
+        <h3>Businesses</h3>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="discover">
+    <h2 id="listingHeading">Discover Praia</h2>
+
+    <div class="listings" id="listingGrid">
+
+      <article class="card" data-category="Jobs">
+        <span class="badge">Jobs</span>
+        <h3>Find Work in Praia</h3>
+        <p>Explore opportunities with local employers.</p>
+      </article>
+
+      <article class="card" data-category="Housing">
+        <span class="badge">Housing</span>
+        <h3>Rooms and Apartments</h3>
+        <p>Discover accommodation in your area.</p>
+      </article>
+
+      <article class="card" data-category="Marketplace">
+        <span class="badge">Marketplace</span>
+        <h3>Buy and Sell</h3>
+        <p>Find products and connect with local sellers.</p>
+      </article>
+
+      <article class="card" data-category="Services">
+        <span class="badge">Services</span>
+        <h3>Local Professionals</h3>
+        <p>Find tailors, cleaners and construction workers.</p>
+      </article>
+
+      <article class="card" data-category="Business">
+        <span class="badge">Businesses</span>
+        <h3>Local Business Directory</h3>
+        <p>Discover shops and other businesses in Praia.</p>
+      </article>
+
+      <article class="card" data-category="Services">
+        <span class="badge">Community</span>
+        <h3>Connect with Your Community</h3>
+        <p>Discover useful local services and opportunities.</p>
+      </article>
+
+    </div>
+
+    <p id="noResults" style="display:none; margin-top:20px;">
+      No matching categories found.
+    </p>
+  </section>
+
+  <section class="notice">
+    <h2>Have Something to Advertise?</h2>
+
+    <p>
+      Praia Connect will help local businesses, employers
+      and service providers reach more people.
+    </p>
+
+    <p>
+      Advertisement submissions are not available yet.
+      This is our first website version.
+    </p>
+
+    <button onclick="alert('Advertisement submissions are coming soon!')">
+      Advertise With Us
+    </button>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Praia Connect</strong></p>
+  <p>Everything Praia. One Place.</p>
+  <p>Praia, Cabo Verde</p>
+  <p>© 2026 Praia Connect</p>
+</footer>
+
+<script>
+function filterListings(category) {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("listingHeading").textContent =
+    category + " in Praia";
+
+  let cards = document.querySelectorAll(".card");
+  let count = 0;
+
+  cards.forEach(function(card) {
+    let matches = card.dataset.category === category;
+    card.style.display = matches ? "block" : "none";
+    if (matches) count++;
+  });
+
+  document.getElementById("noResults").style.display =
+    count ? "none" : "block";
+
+  document.getElementById("discover").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function searchListings() {
+  let query = document.getElementById("searchInput")
+    .value.toLowerCase().trim();
+
+  let cards = document.querySelectorAll(".card");
+  let count = 0;
+
+  document.getElementById("listingHeading").textContent =
+    query ? "Search Results" : "Discover Praia";
+
+  cards.forEach(function(card) {
+    let matches = card.textContent.toLowerCase().includes(query);
+    card.style.display = matches ? "block" : "none";
+    if (matches) count++;
+  });
+
+  document.getElementById("noResults").style.display =
+    count ? "none" : "block";
+
+  document.getElementById("discover").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+</script>
+
+</body>
+</html>
