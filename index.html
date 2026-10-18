@@ -427,6 +427,188 @@ function searchListings() {
     behavior: "smooth"
   });
 }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://aghjsiproqnzgvmaipbq.supabase.co";
+
+// Replace the text below with your Supabase Publishable key.
+const SUPABASE_KEY = "sb_publishable_Zjq7IlVCmzsFmf6eQNykwQ_FgKPvISR;
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+function filterListings(category) {
+  document.getElementById("searchInput").value = "";
+
+  // Keep the Businesses category consistent.
+  if (category === "Business") {
+    category = "Businesses";
+  }
+
+  document.getElementById("listingHeading").textContent =
+    category + " in Praia";
+
+  let cards = document.querySelectorAll(".card");
+  let count = 0;
+
+  cards.forEach(function(card) {
+    let matches = card.dataset.category === category;
+    card.style.display = matches ? "block" : "none";
+    if (matches) count++;
+  });
+
+  document.getElementById("noResults").style.display =
+    count ? "none" : "block";
+
+  document.getElementById("discover").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function searchListings() {
+  let query = document.getElementById("searchInput")
+    .value.toLowerCase().trim();
+
+  let cards = document.querySelectorAll(".card");
+  let count = 0;
+
+  document.getElementById("listingHeading").textContent =
+    query ? "Search Results" : "Discover Praia";
+
+  cards.forEach(function(card) {
+    let matches = card.textContent.toLowerCase().includes(query);
+    card.style.display = matches ? "block" : "none";
+    if (matches) count++;
+  });
+
+  document.getElementById("noResults").style.display =
+    count ? "none" : "block";
+
+  document.getElementById("discover").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+async function loadApprovedListings() {
+  const { data, error } = await db
+    .from("listings")
+    .select("id, created_at, title, description, category, location, price, currency, advertiser_name, whatsapp")
+    .eq("status", "approved")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Could not load adverts:", error.message);
+    return;
+  }
+
+  const grid = document.getElementById("listingGrid");
+
+  data.forEach(function(ad) {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.dataset.category = ad.category;
+
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = ad.category;
+
+    const title = document.createElement("h3");
+    title.textContent = ad.title;
+
+    const description = document.createElement("p");
+    description.textContent = ad.description;
+
+    const location = document.createElement("p");
+    location.textContent = "📍 " + ad.location;
+
+    card.append(badge, title, description, location);
+
+    if (ad.price !== null) {
+      const price = document.createElement("p");
+      price.textContent = "Price: " + ad.price + " " +
+        (ad.currency || "CVE");
+      card.appendChild(price);
+    }
+
+    const advertiser = document.createElement("p");
+    advertiser.textContent = "Advertiser: " + ad.advertiser_name;
+    card.appendChild(advertiser);
+
+    const whatsappDigits = String(ad.whatsapp).replace(/\D/g, "");
+
+    if (whatsappDigits) {
+      const contact = document.createElement("a");
+      contact.href = "https://wa.me/" + whatsappDigits;
+      contact.target = "_blank";
+      contact.rel = "noopener noreferrer";
+      contact.textContent = "Contact on WhatsApp";
+      contact.style.display = "inline-block";
+      contact.style.marginTop = "8px";
+      card.appendChild(contact);
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("listingForm").addEventListener(
+  "submit",
+  async function(event) {
+    event.preventDefault();
+
+    const message = document.getElementById("formMessage");
+    const button = document.getElementById("submitAd");
+
+    button.disabled = true;
+    message.textContent = "Submitting your advert...";
+
+    const title = document.getElementById("adTitle").value.trim();
+    const description =
+      document.getElementById("adDescription").value.trim();
+    const category = document.getElementById("adCategory").value;
+    const location = document.getElementById("adLocation").value.trim();
+    const name = document.getElementById("adName").value.trim();
+    const whatsapp = document.getElementById("adWhatsApp").value.trim();
+    const priceInput = document.getElementById("adPrice").value;
+
+    const price = priceInput === "" ? null : Number(priceInput);
+
+    if (price !== null && (!Number.isFinite(price) || price < 0)) {
+      message.textContent = "Please enter a valid price.";
+      button.disabled = false;
+      return;
+    }
+
+    const { error } = await db.from("listings").insert({
+      title: title,
+      description: description,
+      category: category,
+      location: location,
+      price: price,
+      currency: "CVE",
+      advertiser_name: name,
+      whatsapp: whatsapp
+    });
+
+    button.disabled = false;
+
+    if (error) {
+      console.error("Advert submission failed:", error.message);
+      message.textContent =
+        "Submission failed. Please try again later.";
+      return;
+    }
+
+    document.getElementById("listingForm").reset();
+    message.textContent =
+      "Advert submitted successfully! It will appear after approval.";
+  }
+);
+
+loadApprovedListings();
 </script>
 
 </body>
