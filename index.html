@@ -1,615 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Praia Connect | Everything Praia</title>
+  <title>Praia Connect | Your Community, Connected</title>
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  <meta
+    name="description"
+    content="Find jobs, housing, services and businesses in Praia, Cabo Verde."
+  >
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f8fb;
-  color: #172b4d;
-  line-height: 1.6;
-}
+  <style>
+    :root {
+      --blue: #063b68;
+      --deep-blue: #052b4a;
+      --light-blue: #eaf4fc;
+      --white: #ffffff;
+      --text: #1d2939;
+      --muted: #667085;
+      --border: #dce5ee;
+      --green: #16864b;
+    }
 
-header {
-  background: #063b66;
-  color: white;
-  padding: 22px 16px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-nav {
-  max-width: 1000px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f8fc;
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-}
+    header {
+      background: var(--deep-blue);
+      color: white;
+      padding: 20px 16px;
+    }
 
-.logo span {
-  color: #43d9c4;
-}
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
-}
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
 
-.hero {
-  background: linear-gradient(135deg, #063b66, #087eaa);
-  color: white;
-  padding: 55px 20px;
-  text-align: center;
-}
+    .logo span {
+      color: #58c5ff;
+    }
 
-.hero h1 {
-  font-size: 36px;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
+    .header-note {
+      font-size: 13px;
+      opacity: 0.9;
+    }
 
-.hero p {
-  margin-bottom: 24px;
-  color: #e3f5ff;
-}
+    .hero {
+      background: linear-gradient(135deg, #063b68, #0878b9);
+      color: white;
+      padding: 55px 18px;
+      text-align: center;
+    }
 
-.search {
-  display: flex;
-  max-width: 520px;
-  margin: auto;
-  gap: 8px;
-}
+    .hero h1 {
+      font-size: clamp(30px, 6vw, 46px);
+      line-height: 1.2;
+      margin: 0 0 15px;
+    }
 
-input, select, button {
-  font: inherit;
-  border-radius: 8px;
-  padding: 12px;
-}
+    .hero p {
+      max-width: 620px;
+      margin: 0 auto 25px;
+      font-size: 17px;
+    }
 
-.search input {
-  flex: 1;
-  min-width: 0;
-  border: none;
-}
+    .search-box {
+      max-width: 650px;
+      margin: auto;
+      display: flex;
+      gap: 8px;
+    }
 
-button {
-  border: none;
-  background: #11bda7;
-  color: #063b45;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
 
-.container {
-  max-width: 1000px;
-  padding: 30px 16px;
-  margin: auto;
-}
+    button,
+    .button {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 17px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-h2 {
-  margin-bottom: 18px;
-}
+    .search-button {
+      background: #ffca55;
+      color: #17334b;
+    }
 
-.categories {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 36px;
-}
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 16px;
+    }
 
-.category {
-  background: white;
-  border-radius: 12px;
-  padding: 20px 12px;
-  text-align: center;
-  border: 1px solid #e0eaf1;
-  cursor: pointer;
-}
+    .section-title {
+      font-size: 25px;
+      margin: 0 0 18px;
+    }
 
-.category .icon {
-  font-size: 30px;
-}
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 35px;
+    }
 
-.category h3 {
-  font-size: 15px;
-  margin-top: 6px;
-}
+    .category-button {
+      background: white;
+      color: var(--blue);
+      border: 1px solid var(--border);
+      padding: 18px 8px;
+      min-height: 75px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
 
-.listings {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
+    .category-button.active,
+    .category-button:hover {
+      background: var(--blue);
+      color: white;
+    }
 
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid #e0eaf1;
-}
+    .listings-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
 
-.badge {
-  display: inline-block;
-  color: #087eaa;
-  background: #e6f7ff;
-  padding: 4px 8px;
-  border-radius: 5px;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
+    .listings-heading .section-title {
+      margin: 0;
+    }
 
-.card h3 {
-  font-size: 17px;
-  margin-bottom: 8px;
-}
+    .listing-count {
+      color: var(--muted);
+      font-size: 14px;
+    }
 
-.card p {
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
+    .listing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
 
-.notice {
-  background: #e7f7f4;
-  border-radius: 12px;
-  padding: 22px;
-  margin-top: 35px;
-}
+    .listing-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 19px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      overflow-wrap: anywhere;
+    }
 
-.notice p {
-  margin: 8px 0 15px;
-}
+    .listing-category {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--light-blue);
+      color: var(--blue);
+      border-radius: 20px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-footer {
-  background: #062c49;
-  color: white;
-  text-align: center;
-  padding: 25px 15px;
-  margin-top: 35px;
-  font-size: 13px;
-}
+    .listing-card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
 
-footer p {
-  margin: 5px;
-}
+    .listing-description {
+      white-space: pre-wrap;
+      margin: 0 0 15px;
+      color: #475467;
+      overflow-wrap: anywhere;
+    }
 
-@media (min-width: 650px) {
-  .categories {
-    grid-template-columns: repeat(5, 1fr);
-  }
+    .listing-details {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
 
-  .listings {
-    grid-template-columns: repeat(3, 1fr);
-  }
+    .listing-details p {
+      margin: 4px 0;
+    }
 
-  .hero h1 {
-    font-size: 48px;
-  }
-}
+    .listing-footer {
+      margin-top: auto;
+    }
 
-@media (max-width: 380px) {
-  .hero h1 {
-    font-size: 30px;
-  }
+    .whatsapp-button {
+      display: block;
+      text-align: center;
+      background: var(--green);
+      color: white;
+      text-decoration: none;
+      padding: 11px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
 
-  .search {
-    flex-direction: column;
-  }
-}
-</style>
+    .whatsapp-button:hover {
+      background: #106b3b;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      background: white;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 30px 18px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .form-section {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 25px;
+      margin-top: 45px;
+    }
+
+    .form-intro {
+      color: var(--muted);
+      margin-top: -8px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-button {
+      background: var(--blue);
+      color: white;
+      margin-top: 18px;
+      width: 100%;
+    }
+
+    .submit-button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .form-message {
+      margin-top: 15px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: var(--deep-blue);
+      color: white;
+      padding: 25px 16px;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 5px;
+    }
+
+    @media (max-width: 750px) {
+      .categories {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .listing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 500px) {
+      .listing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .search-button {
+        width: 100%;
+      }
+
+      .form-section {
+        padding: 18px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <nav>
-    <div class="logo">Praia <span>Connect</span></div>
-    <a href="#categories">Explore Praia ↓</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h1>Everything Praia.<br>One Place.</h1>
-
-  <p>
-    Find jobs, rooms, services and businesses
-    across Praia, Cabo Verde.
-  </p>
-
-  <div class="search">
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="What are you looking for?"
-      aria-label="Search listings"
-    >
-
-    <button onclick="searchListings()">Search</button>
-  </div>
-</section>
-
-<main class="container">
-
-  <section id="categories">
-    <h2>Explore Categories</h2>
-
-    <div class="categories">
-
-      <div class="category" onclick="filterListings('Jobs')">
-        <div class="icon">💼</div>
-        <h3>Jobs</h3>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="#">Praia <span>Connect</span></a>
+      <div class="header-note">
+        Your community, connected.
       </div>
+    </div>
+  </header>
 
-      <div class="category" onclick="filterListings('Housing')">
-        <div class="icon">🏠</div>
-        <h3>Housing</h3>
-      </div>
+  <section class="hero">
+    <h1>Discover More in Praia</h1>
 
-      <div class="category" onclick="filterListings('Marketplace')">
-        <div class="icon">🛍️</div>
-        <h3>Marketplace</h3>
-      </div>
+    <p>
+      Find jobs, homes, products, services and businesses
+      in Cabo Verde, all in one place.
+    </p>
 
-      <div class="category" onclick="filterListings('Services')">
-        <div class="icon">🛠️</div>
-        <h3>Services</h3>
-      </div>
+    <div class="search-box">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search jobs, houses, products..."
+        aria-label="Search advertisements"
+      >
 
-      <div class="category" onclick="filterListings('Business')">
-        <div class="icon">🏢</div>
-        <h3>Businesses</h3>
-      </div>
-
+      <button
+        class="search-button"
+        id="searchButton"
+        type="button"
+      >
+        Search
+      </button>
     </div>
   </section>
 
-  <section id="discover">
-    <h2 id="listingHeading">Discover Praia</h2>
+  <main>
 
-    <div class="listings" id="listingGrid">
+    <section>
+      <h2 class="section-title">Explore Categories</h2>
 
-      <article class="card" data-category="Jobs">
-        <span class="badge">Jobs</span>
-        <h3>Find Work in Praia</h3>
-        <p>Explore opportunities with local employers.</p>
-      </article>
+      <div class="categories">
+        <button class="category-button active" data-category="All">
+          All Ads
+        </button>
 
-      <article class="card" data-category="Housing">
-        <span class="badge">Housing</span>
-        <h3>Rooms and Apartments</h3>
-        <p>Discover accommodation in your area.</p>
-      </article>
+        <button class="category-button" data-category="Jobs">
+          Jobs
+        </button>
 
-      <article class="card" data-category="Marketplace">
-        <span class="badge">Marketplace</span>
-        <h3>Buy and Sell</h3>
-        <p>Find products and connect with local sellers.</p>
-      </article>
+        <button class="category-button" data-category="Housing">
+          Housing
+        </button>
 
-      <article class="card" data-category="Services">
-        <span class="badge">Services</span>
-        <h3>Local Professionals</h3>
-        <p>Find tailors, cleaners and construction workers.</p>
-      </article>
+        <button class="category-button" data-category="Marketplace">
+          Marketplace
+        </button>
 
-      <article class="card" data-category="Business">
-        <span class="badge">Businesses</span>
-        <h3>Local Business Directory</h3>
-        <p>Discover shops and other businesses in Praia.</p>
-      </article>
+        <button class="category-button" data-category="Services">
+          Services
+        </button>
 
-      <article class="card" data-category="Services">
-        <span class="badge">Community</span>
-        <h3>Connect with Your Community</h3>
-        <p>Discover useful local services and opportunities.</p>
-      </article>
+        <button class="category-button" data-category="Businesses">
+          Businesses
+        </button>
+      </div>
+    </section>
 
-    </div>
+    <section id="advertisements">
+      <div class="listings-heading">
+        <h2 class="section-title">Latest Advertisements</h2>
+        <span class="listing-count" id="listingCount">
+          Loading advertisements...
+        </span>
+      </div>
 
-    <p id="noResults" style="display:none; margin-top:20px;">
-  No matching categories found.
-</p>
+      <div class="listing-grid" id="listingGrid">
+        <div class="empty-state">
+          Loading approved advertisements...
+        </div>
+      </div>
+    </section>
 
-</section>
+    <section class="form-section" id="postAdvert">
+      <h2 class="section-title">Post Your Advertisement</h2>
 
-<section class="notice" id="advertise">
-  <h2>Advertise With Us</h2>
+      <p class="form-intro">
+        Promote your job, product, property, service or business.
+        Your advertisement will be reviewed before it becomes public.
+      </p>
 
-  <p>Post your advert on Praia Connect. Every submission will be reviewed before appearing publicly.</p>
+      <form id="listingForm">
+        <div class="form-grid">
 
-  <form id="listingForm">
-    <label for="adTitle">Advert Title</label>
-    <input id="adTitle" type="text" maxlength="100"
-      placeholder="e.g. Room for rent in Praia" required>
+          <div class="form-group">
+            <label for="adTitle">Advertisement Title *</label>
+            <input
+              id="adTitle"
+              type="text"
+              maxlength="120"
+              placeholder="Example: Tailor needed"
+              required
+            >
+          </div>
 
-    <label for="adCategory">Category</label>
-    <select id="adCategory" required>
-      <option value="">Choose a category</option>
-      <option value="Jobs">Jobs</option>
-      <option value="Housing">Housing</option>
-      <option value="Marketplace">Marketplace</option>
-      <option value="Services">Services</option>
-      <option value="Businesses">Businesses</option>
-    </select>
+          <div class="form-group">
+            <label for="adCategory">Category *</label>
+            <select id="adCategory" required>
+              <option value="">Choose a category</option>
+              <option value="Jobs">Jobs</option>
+              <option value="Housing">Housing</option>
+              <option value="Marketplace">Marketplace</option>
+              <option value="Services">Services</option>
+              <option value="Businesses">Businesses</option>
+            </select>
+          </div>
 
-    <label for="adDescription">Description</label>
-    <textarea id="adDescription" minlength="10" maxlength="2000"
-      rows="4" placeholder="Describe your advert" required></textarea>
+          <div class="form-group full-width">
+            <label for="adDescription">Description *</label>
+            <textarea
+              id="adDescription"
+              maxlength="3000"
+              placeholder="Describe what you are offering..."
+              required
+            ></textarea>
+          </div>
 
-    <label for="adLocation">Location</label>
-    <input id="adLocation" type="text"
-      placeholder="e.g. Palmarejo, Praia" required>
+          <div class="form-group">
+            <label for="adLocation">Location *</label>
+            <input
+              id="adLocation"
+              type="text"
+              maxlength="150"
+              placeholder="Example: Praia, Palmarejo"
+              required
+            >
+          </div>
 
-    <label for="adPrice">Price in escudos (optional)</label>
-    <input id="adPrice" type="number" min="0" step="0.01">
+          <div class="form-group">
+            <label for="adPrice">Price (CVE)</label>
+            <input
+              id="adPrice"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="Leave blank if not applicable"
+            >
+          </div>
 
-    <label for="adName">Your Name or Business Name</label>
-    <input id="adName" type="text"
-      placeholder="Your name or business name" required>
+          <div class="form-group">
+            <label for="adName">Your Name or Business Name *</label>
+            <input
+              id="adName"
+              type="text"
+              maxlength="120"
+              required
+            >
+          </div>
 
-    <label for="adWhatsApp">Your WhatsApp Number</label>
-    <input id="adWhatsApp" type="tel"
-      placeholder="Include country code, e.g. +238" required>
+          <div class="form-group">
+            <label for="adWhatsApp">Your WhatsApp Number *</label>
+            <input
+              id="adWhatsApp"
+              type="tel"
+              maxlength="30"
+              placeholder="Include your country code"
+              required
+            >
+          </div>
 
-    <button type="submit" id="submitAd">Submit Advert</button>
+        </div>
 
-    <p id="formMessage" role="status"></p>
-  </form>
-</section>
+        <button
+          type="submit"
+          class="submit-button"
+          id="submitButton"
+        >
+          Submit Advertisement
+        </button>
 
-</main>
+        <div
+          class="form-message"
+          id="formMessage"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </form>
+    </section>
 
-<footer>
-  <p><strong>Praia Connect</strong></p>
-  <p>Everything Praia. One Place.</p>
-  <p>Praia, Cabo Verde</p>
-  <p>© 2026 Praia Connect</p>
-</footer>
+  </main>
 
-<script>
-function filterListings(category) {
-  document.getElementById("searchInput").value = "";
-  document.getElementById("listingHeading").textContent =
-    category + " in Praia";
+  <footer>
+    <p><strong>Praia Connect</strong></p>
+    <p>Connecting people, opportunities and businesses in Cabo Verde.</p>
+    <p>&copy; <span id="currentYear"></span> Praia Connect</p>
+  </footer>
 
-  let cards = document.querySelectorAll(".card");
-  let count = 0;
+  <!-- Load Supabase before running our JavaScript. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  cards.forEach(function(card) {
-    let matches = card.dataset.category === category;
-    card.style.display = matches ? "block" : "none";
-    if (matches) count++;
-  });
+  <script>
+    // SUPABASE CONFIGURATION
+    const SUPABASE_URL =
+      "https://aghjsiproqnzgvmaipbq.supabase.co";
 
-  document.getElementById("noResults").style.display =
-    count ? "none" : "block";
+    // Replace the text below with your existing publishable key.
+    // Do not put a secret or service-role key here.
+    const SUPABASE_KEY =
+      "PASTE_YOUR_EXISTING_PUBLISHABLE_KEY_HERE";
 
-  document.getElementById("discover").scrollIntoView({
-    behavior: "smooth"
-  });
-}
+    const listingGrid = document.getElementById("listingGrid");
+    const listingCount = document.getElementById("listingCount");
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+    const listingForm = document.getElementById("listingForm");
+    const formMessage = document.getElementById("formMessage");
+    const submitButton = document.getElementById("submitButton");
 
-function searchListings() {
-  let query = document.getElementById("searchInput")
-    .value.toLowerCase().trim();
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
 
-  let cards = document.querySelectorAll(".card");
-  let count = 0;
+    let db = null;
+    let approvedListings = [];
+    let activeCategory = "All";
 
-  document.getElementById("listingHeading").textContent =
-    query ? "Search Results" : "Discover Praia";
-
-  cards.forEach(function(card) {
-    let matches = card.textContent.toLowerCase().includes(query);
-    card.style.display = matches ? "block" : "none";
-    if (matches) count++;
-  });
-
-  document.getElementById("noResults").style.display =
-    count ? "none" : "block";
-
-  document.getElementById("discover").scrollIntoView({
-    behavior: "smooth"
-  });
-}
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL = "https://aghjsiproqnzgvmaipbq.supabase.co";
-
-// Replace the text below with your Supabase Publishable key.
-const SUPABASE_KEY = "sb_publishable_Zjq7IlVCmzsFmf6eQNykwQ_FgKPvISR;
-
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-function filterListings(category) {
-  document.getElementById("searchInput").value = "";
-
-  // Keep the Businesses category consistent.
-  if (category === "Business") {
-    category = "Businesses";
-  }
-
-  document.getElementById("listingHeading").textContent =
-    category + " in Praia";
-
-  let cards = document.querySelectorAll(".card");
-  let count = 0;
-
-  cards.forEach(function(card) {
-    let matches = card.dataset.category === category;
-    card.style.display = matches ? "block" : "none";
-    if (matches) count++;
-  });
-
-  document.getElementById("noResults").style.display =
-    count ? "none" : "block";
-
-  document.getElementById("discover").scrollIntoView({
-    behavior: "smooth"
-  });
-}
-
-function searchListings() {
-  let query = document.getElementById("searchInput")
-    .value.toLowerCase().trim();
-
-  let cards = document.querySelectorAll(".card");
-  let count = 0;
-
-  document.getElementById("listingHeading").textContent =
-    query ? "Search Results" : "Discover Praia";
-
-  cards.forEach(function(card) {
-    let matches = card.textContent.toLowerCase().includes(query);
-    card.style.display = matches ? "block" : "none";
-    if (matches) count++;
-  });
-
-  document.getElementById("noResults").style.display =
-    count ? "none" : "block";
-
-  document.getElementById("discover").scrollIntoView({
-    behavior: "smooth"
-  });
-}
-
-async function loadApprovedListings() {
-  const { data, error } = await db
-    .from("listings")
-    .select("id, created_at, title, description, category, location, price, currency, advertiser_name, whatsapp")
-    .eq("status", "approved")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error("Could not load adverts:", error.message);
-    return;
-  }
-
-  const grid = document.getElementById("listingGrid");
-
-  data.forEach(function(ad) {
-    const card = document.createElement("article");
-    card.className = "card";
-    card.dataset.category = ad.category;
-
-    const badge = document.createElement("span");
-    badge.className = "badge";
-    badge.textContent = ad.category;
-
-    const title = document.createElement("h3");
-    title.textContent = ad.title;
-
-    const description = document.createElement("p");
-    description.textContent = ad.description;
-
-    const location = document.createElement("p");
-    location.textContent = "📍 " + ad.location;
-
-    card.append(badge, title, description, location);
-
-    if (ad.price !== null) {
-      const price = document.createElement("p");
-      price.textContent = "Price: " + ad.price + " " +
-        (ad.currency || "CVE");
-      card.appendChild(price);
+    function showMessage(message, isError = false) {
+      formMessage.textContent = message;
+      formMessage.style.color = isError ? "#b42318" : "#16864b";
     }
 
-    const advertiser = document.createElement("p");
-    advertiser.textContent = "Advertiser: " + ad.advertiser_name;
-    card.appendChild(advertiser);
+    function createElement(tag, className, text) {
+      const element = document.createElement(tag);
 
-    const whatsappDigits = String(ad.whatsapp).replace(/\D/g, "");
+      if (className) {
+        element.className = className;
+      }
 
-    if (whatsappDigits) {
-      const contact = document.createElement("a");
-      contact.href = "https://wa.me/" + whatsappDigits;
-      contact.target = "_blank";
-      contact.rel = "noopener noreferrer";
-      contact.textContent = "Contact on WhatsApp";
-      contact.style.display = "inline-block";
-      contact.style.marginTop = "8px";
-      card.appendChild(contact);
+      if (text !== undefined && text !== null) {
+        element.textContent = String(text);
+      }
+
+      return element;
     }
 
-    grid.appendChild(card);
-  });
-}
+    function makeWhatsAppLink(number) {
+      const digits = String(number || "").replace(/\D/g, "");
 
-document.getElementById("listingForm").addEventListener(
-  "submit",
-  async function(event) {
-    event.preventDefault();
+      // A WhatsApp link needs a full international number.
+      if (digits.length < 7 || digits.length > 15) {
+        return null;
+      }
 
-    const message = document.getElementById("formMessage");
-    const button = document.getElementById("submitAd");
-
-    button.disabled = true;
-    message.textContent = "Submitting your advert...";
-
-    const title = document.getElementById("adTitle").value.trim();
-    const description =
-      document.getElementById("adDescription").value.trim();
-    const category = document.getElementById("adCategory").value;
-    const location = document.getElementById("adLocation").value.trim();
-    const name = document.getElementById("adName").value.trim();
-    const whatsapp = document.getElementById("adWhatsApp").value.trim();
-    const priceInput = document.getElementById("adPrice").value;
-
-    const price = priceInput === "" ? null : Number(priceInput);
-
-    if (price !== null && (!Number.isFinite(price) || price < 0)) {
-      message.textContent = "Please enter a valid price.";
-      button.disabled = false;
-      return;
+      return "https://wa.me/" + digits;
     }
 
-    const { error } = await db.from("listings").insert({
-      title: title,
-      description: description,
-      category: category,
-      location: location,
-      price: price,
-      currency: "CVE",
-      advertiser_name: name,
-      whatsapp: whatsapp
+    function createListingCard(listing) {
+      const card = createElement("article", "listing-card");
+
+      card.appendChild(
+        createElement("span", "listing-category", listing.category)
+      );
+
+      card.appendChild(
+        createElement("h3", "", listing.title)
+      );
+
+      card.appendChild(
+        createElement("p", "listing-description", listing.description)
+      );
+
+      const details = createElement("div", "listing-details");
+
+      details.appendChild(
+        createElement("p", "", "Location: " + (listing.location || "Not specified"))
+      );
+
+      if (listing.price !== null && listing.price !== undefined &&
+          listing.price !== "") {
+        details.appendChild(
+          createElement(
+            "p",
+            "",
+            "Price: " + listing.price + " " + (listing.currency || "CVE")
+          )
+        );
+      }
+
+      details.appendChild(
+        createElement(
+          "p",
+          "",
+          "Advertiser: " + (listing.advertiser_name || "Not specified")
+        )
+      );
+
+      card.appendChild(details);
+
+      const footer = createElement("div", "listing-footer");
+      const whatsappUrl = makeWhatsAppLink(listing.whatsapp);
+
+      if (whatsappUrl) {
+        const link = createElement("a", "whatsapp-button", "Contact on WhatsApp");
+        link.href = whatsappUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        footer.appendChild(link);
+      } else {
+        footer.appendChild(
+          createElement("p", "", "WhatsApp contact unavailable.")
+        );
+      }
+
+      card.appendChild(footer);
+
+      return card;
+    }
+
+    function renderListings() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+
+      const filtered = approvedListings.filter(function(listing) {
+        const matchesCategory =
+          activeCategory === "All" ||
+          listing.category === activeCategory;
+
+        const searchableText = [
+          listing.title,
+          listing.description,
+          listing.category,
+          listing.location,
+          listing.advertiser_name
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = searchableText.includes(searchTerm);
+
+        return matchesCategory && matchesSearch;
+      });
+
+      listingGrid.replaceChildren();
+
+      listingCount.textContent =
+        filtered.length + (filtered.length === 1
+          ? " advertisement"
+          : " advertisements");
+
+      if (filtered.length === 0) {
+        listingGrid.appendChild(
+          createElement(
+            "div",
+            "empty-state",
+            approvedListings.length === 0
+              ? "No approved advertisements yet. Be the first to submit one!"
+              : "No advertisements match your search. Try another search or category."
+          )
+        );
+
+        return;
+      }
+
+      filtered.forEach(function(listing) {
+        listingGrid.appendChild(createListingCard(listing));
+      });
+    }
+
+    async function loadApprovedListings() {
+      if (!db) {
+        listingGrid.replaceChildren(
+          createElement(
+            "div",
+            "empty-state",
+            "Website configuration is incomplete. Check the Supabase publishable key."
+          )
+        );
+
+        listingCount.textContent = "Unable to load";
+        return;
+      }
+
+      listingGrid.replaceChildren(
+        createElement("div", "empty-state", "Loading advertisements...")
+      );
+
+      try {
+        const result = await db
+          .from("listings")
+          .select(
+            "id, created_at, title, description, category, location, price, currency, advertiser_name, whatsapp"
+          )
+          .eq("status", "approved")
+          .order("created_at", { ascending: false });
+
+        if (result.error) {
+          throw result.error;
+        }
+
+        approvedListings = result.data || [];
+        renderListings();
+
+      } catch (error) {
+        console.error("Could not load advertisements:", error.message);
+
+        listingGrid.replaceChildren(
+          createElement(
+            "div",
+            "empty-state",
+            "We could not load advertisements. Please try again later."
+          )
+        );
+
+        listingCount.textContent = "Loading failed";
+      }
+    }
+
+    searchButton.addEventListener("click", renderListings);
+
+    searchInput.addEventListener("input", renderListings);
+
+    document.querySelectorAll(".category-button").forEach(function(button) {
+      button.addEventListener("click", function() {
+        activeCategory = button.dataset.category;
+
+        document.querySelectorAll(".category-button").forEach(function(item) {
+          item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+        renderListings();
+      });
     });
 
-    button.disabled = false;
+    listingForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
 
-    if (error) {
-      console.error("Advert submission failed:", error.message);
-      message.textContent =
-        "Submission failed. Please try again later.";
-      return;
+      if (!db) {
+        showMessage(
+          "Website configuration is incomplete. Check your Supabase key.",
+          true
+        );
+        return;
+      }
+
+      const title = document.getElementById("adTitle").value.trim();
+      const category = document.getElementById("adCategory").value;
+      const description =
+        document.getElementById("adDescription").value.trim();
+      const location = document.getElementById("adLocation").value.trim();
+      const priceInput = document.getElementById("adPrice").value;
+      const name = document.getElementById("adName").value.trim();
+      const whatsapp = document.getElementById("adWhatsApp").value.trim();
+
+      if (!title || !category || !description ||
+          !location || !name || !whatsapp) {
+        showMessage("Please complete all required fields.", true);
+        return;
+      }
+
+      const whatsappUrl = makeWhatsAppLink(whatsapp);
+
+      if (!whatsappUrl) {
+        showMessage(
+          "Enter a valid WhatsApp number with its country code.",
+          true
+        );
+        return;
+      }
+
+      const price = priceInput === "" ? null : Number(priceInput);
+
+      if (price !== null && (!Number.isFinite(price) || price < 0)) {
+        showMessage("Please enter a valid price.", true);
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+      showMessage("Submitting your advertisement...");
+
+      try {
+        const result = await db
+          .from("listings")
+          .insert({
+            title: title,
+            category: category,
+            description: description,
+            location: location,
+            price: price,
+            currency: "CVE",
+            advertiser_name: name,
+            whatsapp: whatsapp
+          });
+
+        if (result.error) {
+          throw result.error;
+        }
+
+        listingForm.reset();
+
+        showMessage(
+          "Advertisement submitted successfully! It will appear after approval."
+        );
+
+      } catch (error) {
+        console.error("Advertisement submission failed:", error.message);
+
+        showMessage(
+          "Submission failed. Please check your internet connection or try again later.",
+          true
+        );
+
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Advertisement";
+      }
+    });
+
+    // Initialise Supabase only when the key has been added.
+    if (
+      window.supabase &&
+      SUPABASE_KEY !== "" &&
+      SUPABASE_KEY.trim() !== "sb_publishable_Zjq7IlVCmzsFmf6eQNykwQ_FgKPvISR"
+    ) {
+      db = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
     }
 
-    document.getElementById("listingForm").reset();
-    message.textContent =
-      "Advert submitted successfully! It will appear after approval.";
-  }
-);
-
-loadApprovedListings();
-</script>
+    loadApprovedListings();
+  </script>
 
 </body>
 </html>
