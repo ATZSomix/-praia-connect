@@ -571,7 +571,7 @@
     // Replace the text below with your existing publishable key.
     // Do not put a secret or service-role key here.
     const SUPABASE_KEY =
-      "PASTE_YOUR_EXISTING_PUBLISHABLE_KEY_HERE";
+      "sb_publishable_Zjq7IlVCmzsFmf6eQNykwQ_FgKPvISR ";
 
     const listingGrid = document.getElementById("listingGrid");
     const listingCount = document.getElementById("listingCount");
@@ -892,6 +892,140 @@
 
     loadApprovedListings();
   </script>
+<section id="account-section" style="max-width:420px;margin:30px auto;padding:20px;border-radius:12px;background:#f3f7fb;">
+  <h2>Praia Connect Account</h2>
+  <label for="account-email">Email address</label>
+  <input id="account-email" type="email" placeholder="Enter your email" autocomplete="email" style="display:block;width:100%;padding:12px;margin:8px 0 15px;box-sizing:border-box;">
+  <label for="account-password">Password</label>
+  <input id="account-password" type="password" placeholder="At least 6 characters" autocomplete="current-password" style="display:block;width:100%;padding:12px;margin:8px 0 15px;box-sizing:border-box;">
+  <button id="signup-button" type="button">Create Account</button>
+  <button id="login-button" type="button">Log In</button>
+  <button id="logout-button" type="button" hidden>Log Out</button>
+  <p id="account-message" role="status" aria-live="polite"></p>
+</section> <script>
+const emailInput = document.getElementById("account-email");
+const passwordInput = document.getElementById("account-password");
+const messageBox = document.getElementById("account-message");
+
+const signupButton = document.getElementById("signup-button");
+const loginButton = document.getElementById("login-button");
+const logoutButton = document.getElementById("logout-button");
+
+function showAccountMessage(message) {
+  messageBox.textContent = message;
+}
+
+// Create account
+signupButton.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    showAccountMessage("Enter your email and password.");
+    return;
+  }
+
+  if (password.length < 6) {
+    showAccountMessage("Your password must have at least 6 characters.");
+    return;
+  }
+
+  signupButton.disabled = true;
+  showAccountMessage("Creating your account...");
+
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      showAccountMessage("Account created successfully. You are logged in.");
+    } else {
+      showAccountMessage(
+        "Account created! Check your email to confirm your account before logging in."
+      );
+    }
+  } catch (error) {
+    showAccountMessage(error.message);
+  } finally {
+    signupButton.disabled = false;
+  }
+});
+
+// Log in
+loginButton.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    showAccountMessage("Enter your email and password.");
+    return;
+  }
+
+  loginButton.disabled = true;
+  showAccountMessage("Logging in...");
+
+  try {
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    showAccountMessage("You are logged in successfully.");
+  } catch (error) {
+    showAccountMessage(error.message);
+  } finally {
+    loginButton.disabled = false;
+  }
+});
+
+// Log out
+logoutButton.addEventListener("click", async () => {
+  try {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) throw error;
+
+    showAccountMessage("You have logged out.");
+  } catch (error) {
+    showAccountMessage(error.message);
+  }
+});
+
+// Update the interface when login status changes
+async function updateAccountInterface() {
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    showAccountMessage("Unable to check your login status.");
+    return;
+  }
+
+  const loggedIn = Boolean(data.session);
+
+  signupButton.hidden = loggedIn;
+  loginButton.hidden = loggedIn;
+  logoutButton.hidden = !loggedIn;
+
+  emailInput.disabled = loggedIn;
+  passwordInput.disabled = loggedIn;
+
+  if (loggedIn) {
+    showAccountMessage("You are logged in.");
+  }
+}
+
+supabaseClient.auth.onAuthStateChange(() => {
+  updateAccountInterface();
+});
+
+updateAccountInterface();
+</script>
 
 </body>
 </html>
